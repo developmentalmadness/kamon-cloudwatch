@@ -14,25 +14,30 @@
  */
 
 val awssdkVersion = "1.11.66"
+val akkaVersion = "2.4.14"
 
-val kamonCore = "io.kamon" %% "kamon-core" % "0.6.5"
-val kamonScala = "io.kamon" %% "kamon-scala" % "0.6.5"
-val cloudwatch = "com.amazonaws" % "aws-java-sdk-cloudwatch" % awssdkVersion
-val easyMock = "org.easymock" % "easymock" % "3.2"
- 
 lazy val root = (project in file("."))
-    .settings(noPublishing: _*)
-    .settings(moduleName := "kamon-cloudwatch")
-    .aggregate(kamonCloudwatch)
+  .settings(moduleName := "kamon-cloudwatch")
+  .aggregate(kamonCloudwatch)
 
 lazy val kamonCloudwatch = Project("kamon-cloudwatch", file("kamon-cloudwatch"))
   .settings(Seq(
     moduleName := "kamon-cloudwatch",
+    version := "0.6.5-" + sys.env.get("BUILD_NUMBER").getOrElse("SNAPSHOT"),
     scalaVersion := "2.11.8",
     crossScalaVersions := Seq("2.10.6", "2.11.8")))
   .settings(
     libraryDependencies ++=
-    compileScope(cloudwatch, kamonCore) ++
-    optionalScope(logbackClassic) ++
-    testScope(scalatest, akkaDependency("testkit").value, slf4jApi, easyMock))
+      Seq(
+        "com.amazonaws" % "aws-java-sdk-cloudwatch" % awssdkVersion,
+        "io.kamon" %% "kamon-core" % "0.6.5",
+        "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+        "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+        "ch.qos.logback" % "logback-classic" % "1.1.8",
+
+        // test dependencies
+        "org.easymock" % "easymock" % "3.2" % "test",
+        "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
+        "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+      ))
 
