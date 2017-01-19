@@ -27,11 +27,11 @@ class AgentSpec extends BaseKamonSpec("agent-spec") {
 
   override lazy val config =
     ConfigFactory.load("application")
-  lazy val testConfig = config.getConfig("kamon.cloudwatch")
-  lazy val invalidFlushConfig = config.getConfig("kamon.cloudwatch-invalid-flush")
-  lazy val invalidTimeUnitConfig = config.getConfig("kamon.cloudwatch-invalid-time-unit")
-  lazy val defaultMemoryUnitConfig = config.getConfig("kamon.cloudwatch-default-memory-unit")
-  lazy val kilobyteMemoryUnitConfig = config.getConfig("kamon.cloudwatch-kilobyte-memory-unit")
+  lazy val testConfig = ConfigFactory.load("application").getConfig("kamon.cloudwatch")
+  lazy val invalidFlushConfig = ConfigFactory.load("application").getConfig("kamon.cloudwatch-invalid-flush")
+  lazy val invalidTimeUnitConfig = ConfigFactory.load("application").getConfig("kamon.cloudwatch-invalid-time-unit")
+  lazy val defaultMemoryUnitConfig = ConfigFactory.load("application").getConfig("kamon.cloudwatch-default-memory-unit")
+  lazy val kilobyteMemoryUnitConfig = ConfigFactory.load("application").getConfig("kamon.cloudwatch-kilobyte-memory-unit")
 
   class AgentSettingsFixture(config: Config) {
     val settings =

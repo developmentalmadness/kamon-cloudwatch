@@ -32,7 +32,7 @@ lazy val kamonCloudwatch = Project("kamon-cloudwatch", file("kamon-cloudwatch"))
     crossScalaVersions := Seq("2.10.6", "2.11.8")))
   .settings(
     libraryDependencies ++=
-    compileScope(akkaDependency("actor").value, cloudwatch, kamonCore, kamonScala) ++
+    compileScope(cloudwatch, kamonCore) ++
     optionalScope(logbackClassic) ++
-    testScope(scalatest, akkaDependency("testkit").value, akkaDependency("slf4j").value, logbackClassic, easyMock))
+    testScope(scalatest, akkaDependency("testkit").value, slf4jApi, easyMock))
 
