@@ -20,8 +20,9 @@ val kamonScala = "io.kamon" %% "kamon-scala" % "0.6.5"
 val cloudwatch = "com.amazonaws" % "aws-java-sdk-cloudwatch" % awssdkVersion
 val easyMock = "org.easymock" % "easymock" % "3.2"
  
-lazy val `kamon-cloudwatch` = (project in file("."))
+lazy val root = (project in file("."))
     .settings(noPublishing: _*)
+    .settings(moduleName := "kamon-cloudwatch")
     .aggregate(kamonCloudwatch)
 
 lazy val kamonCloudwatch = Project("kamon-cloudwatch", file("kamon-cloudwatch"))
